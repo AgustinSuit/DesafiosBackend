@@ -1,5 +1,6 @@
 class Product {
-    constructor(title, description, price, thumbnail, code, stock) {
+    constructor(title, description, price, thumbnail, code, stock, id) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -38,6 +39,24 @@ class ProductManager {
         return product;
     }
 
+    updateProduct(id, updatedFields) {
+        const productIndex = this.products.findIndex(product => product.id === id);
+        if (productIndex === -1) {
+            throw new Error('Producto no encontrado.');
+        }
+
+        this.products[productIndex] = { ...this.products[productIndex], ...updatedFields };
+        return this.products[productIndex];
+    }
+
+    deleteProduct(id) {
+        const initialLength = this.products.length;
+        this.products = this.products.filter(product => product.id !== id);
+        if (initialLength === this.products.length) {
+            throw new Error('Producto no encontrado.');
+        }
+    }
+
     generateId() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
@@ -61,3 +80,9 @@ try {
 } catch (error) {
     console.error(error.message);
 }
+
+const updatedProduct = manager.updateProduct(product1.id, { price: 250 });
+console.log(updatedProduct);
+
+manager.deleteProduct(product1.id);
+console.log(manager.getProducts());
