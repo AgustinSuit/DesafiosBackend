@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from "fs";
 
 class ProductManager {
     static ultId = 0;
@@ -53,7 +53,7 @@ class ProductManager {
         if (!product) {
             console.log("Producto no encontrado.");
         } else {
-            console.log("Producto encontrado:", product);
+            return product;
         }
     }
 
@@ -68,14 +68,15 @@ class ProductManager {
     }
 
     deleteProduct(id) {
-        const initialLength = this.products.length;
-        this.products = this.products.filter(product => product.id !== id);
-        if (initialLength === this.products.length) {
-            console.log("Producto no encontrado.");
+        const productIndex = this.products.findIndex(product => product.id === id);
+        if (productIndex !== -1) {
+            this.products.splice(productIndex, 1);
+            this.saveProducts(); 
         } else {
-            this.saveProducts();
+            console.log("Producto no encontrado.");
         }
     }
+
 }
 
-module.exports = ProductManager;
+export default ProductManager

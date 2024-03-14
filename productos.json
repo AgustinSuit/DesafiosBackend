@@ -1,20 +1,92 @@
 [
   {
-    "title": "Producto 2",
-    "description": "Descripción del producto 2",
-    "price": 800,
-    "img": "sin img",
-    "code": "COD2",
-    "stock": 62,
+    "title": "Cuchara de acero inoxidable",
+    "description": "Cuchara resistente y duradera para el uso diario en la cocina.",
+    "price": 5.99,
+    "img": "cuchara.jpg",
+    "code": "CS1001",
+    "stock": 100,
+    "id": 1
+  },
+  {
+    "title": "Camisa de algodón",
+    "description": "Camisa casual de manga corta, cómoda y transpirable.",
+    "price": 19.99,
+    "img": "camisa.jpg",
+    "code": "CC2002",
+    "stock": 50,
     "id": 2
   },
   {
-    "title": "Producto 3",
-    "description": "Descripción del producto 3",
-    "price": 279,
-    "img": "sin img",
-    "code": "COD3",
-    "stock": 83,
+    "title": "Botella de agua deportiva",
+    "description": "Botella de agua reutilizable, ideal para deportes y actividades al aire libre.",
+    "price": 12.5,
+    "img": "botella.jpg",
+    "code": "BD3003",
+    "stock": 80,
     "id": 3
+  },
+  {
+    "title": "Auriculares inalámbricos Bluetooth",
+    "description": "Auriculares inalámbricos con cancelación de ruido y micrófono integrado.",
+    "price": 49.99,
+    "img": "auriculares.jpg",
+    "code": "AI4004",
+    "stock": 30,
+    "id": 4
+  },
+  {
+    "title": "Bolsa de almuerzo térmica",
+    "description": "Bolsa térmica para llevar el almuerzo al trabajo o la escuela.",
+    "price": 8.95,
+    "img": "bolsa.jpg",
+    "code": "BA5005",
+    "stock": 60,
+    "id": 5
+  },
+  {
+    "title": "Set de utensilios de cocina de silicona",
+    "description": "Set de utensilios de cocina antiadherentes y fáciles de limpiar.",
+    "price": 24.99,
+    "img": "utensilios.jpg",
+    "code": "SU6006",
+    "stock": 40,
+    "id": 6
+  },
+  {
+    "title": "Mochila impermeable para senderismo",
+    "description": "Mochila espaciosa y resistente al agua, ideal para actividades al aire libre.",
+    "price": 39.95,
+    "img": "mochila.jpg",
+    "code": "MI7007",
+    "stock": 25,
+    "id": 7
+  },
+  {
+    "title": "Juego de sábanas de algodón",
+    "description": "Juego de sábanas suaves y cómodas para camas tamaño queen.",
+    "price": 29.99,
+    "img": "sabanas.jpg",
+    "code": "JS8008",
+    "stock": 35,
+    "id": 8
+  },
+  {
+    "title": "Pelota de fútbol",
+    "description": "Pelota oficial de fútbol tamaño 5, ideal para partidos y entrenamientos.",
+    "price": 14.99,
+    "img": "pelota.jpg",
+    "code": "PF9009",
+    "stock": 70,
+    "id": 9
+  },
+  {
+    "title": "Lámpara LED de escritorio",
+    "description": "Lámpara de escritorio con brazo flexible y ajustable, perfecta para estudiar o trabajar.",
+    "price": 19.95,
+    "img": "lampara.jpg",
+    "code": "LE10010",
+    "stock": 20,
+    "id": 10
   }
 ]

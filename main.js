@@ -1,5 +1,6 @@
-const ProductManager = require('./productManager');
-const path = require('path');
+import ProductManager from './productManager.js';
+import path from 'path';
+
 
 const fileProducts = "./productos.json";
 const manager = new ProductManager(path.join(__dirname, fileProducts));
