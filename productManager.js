@@ -1,7 +1,14 @@
-import fs from "fs";
+import fs from 'fs';
 
 class ProductManager {
-    static ultId = 0;
+
+    generateRandomId() {
+        let randomId;
+        do {
+            randomId = Math.floor(Math.random() * 100);
+        } while (this.products.some(product => product.id === randomId));
+        return randomId;
+    }
 
     constructor(filePath) {
         this.path = filePath;
@@ -11,7 +18,9 @@ class ProductManager {
     loadProducts() {
         try {
             const data = fs.readFileSync(this.path, 'utf-8');
-            return JSON.parse(data);
+            const products = JSON.parse(data); // Parsear los datos a formato JSON
+            console.log('Productos cargados correctamente:', products);
+            return products;
         } catch (error) {
             console.error('Error al cargar productos:', error);
             return [];
@@ -32,35 +41,43 @@ class ProductManager {
     }
 
     addProduct(product) {
-        if (!product.title || !product.description || !product.price || !product.img || !product.code || !product.stock) {
-            console.log("Todos los campos son obligatorios.");
-            return;
+        if (!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
+            throw new Error("Todos los campos son obligatorios.");
         }
 
-        if (this.products.some(item => item.code === product.code)) {
-            console.log("El código debe ser único.");
-            return;
+        const existingProduct = this.products.find(item => item.code === product.code);
+        if (existingProduct) {
+            throw new Error("El código del producto ya existe.");
         }
 
-        product.id = ++ProductManager.ultId;
-        this.products.push(product);
+        const newProduct = {
+            ...product,
+            id: this.generateRandomId(),
+            status: true
+        };
+
+        this.products.push(newProduct);
         this.saveProducts();
     }
 
     getProductById(id) {
-        const product = this.products.find(item => item.id === id);
-
-        if (!product) {
-            console.log("Producto no encontrado.");
-        } else {
-            return product;
-        }
+        return this.products.find(item => item.id === id);
     }
 
     updateProduct(id, updatedFields) {
         const productIndex = this.products.findIndex(product => product.id === id);
         if (productIndex !== -1) {
-            this.products[productIndex] = { ...this.products[productIndex], ...updatedFields };
+            const updatedProduct = { ...this.products[productIndex] };
+
+            // Evitar que se modifique el ID en la solicitud de actualización
+            delete updatedFields.id;
+
+            // Actualizar solo los campos permitidos enviados desde body
+            Object.keys(updatedFields).forEach(key => {
+                updatedProduct[key] = updatedFields[key];
+            });
+
+            this.products[productIndex] = updatedProduct;
             this.saveProducts();
         } else {
             console.log("Producto no encontrado.");
@@ -71,7 +88,7 @@ class ProductManager {
         const productIndex = this.products.findIndex(product => product.id === id);
         if (productIndex !== -1) {
             this.products.splice(productIndex, 1);
-            this.saveProducts(); 
+            this.saveProducts();
         } else {
             console.log("Producto no encontrado.");
         }
@@ -79,4 +96,5 @@ class ProductManager {
 
 }
 
-export default ProductManager
+export default ProductManager;
+

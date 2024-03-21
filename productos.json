@@ -4,89 +4,169 @@
     "description": "Cuchara resistente y duradera para el uso diario en la cocina.",
     "price": 5.99,
     "img": "cuchara.jpg",
-    "code": "CS1001",
     "stock": 100,
-    "id": 1
+    "id": 120,
+    "code": "CUCH-001",
+    "status": true,
+    "category": "Utensilios de cocina"
   },
   {
     "title": "Camisa de algodón",
     "description": "Camisa casual de manga corta, cómoda y transpirable.",
     "price": 19.99,
     "img": "camisa.jpg",
-    "code": "CC2002",
-    "stock": 50,
-    "id": 2
+    "stock": 20,
+    "id": 2,
+    "code": "CAMI-002",
+    "status": true,
+    "category": "Ropa"
   },
   {
     "title": "Botella de agua deportiva",
     "description": "Botella de agua reutilizable, ideal para deportes y actividades al aire libre.",
     "price": 12.5,
     "img": "botella.jpg",
-    "code": "BD3003",
     "stock": 80,
-    "id": 3
+    "id": 3,
+    "code": "BOTE-003",
+    "status": true,
+    "category": "Deportes y aire libre"
   },
   {
     "title": "Auriculares inalámbricos Bluetooth",
     "description": "Auriculares inalámbricos con cancelación de ruido y micrófono integrado.",
     "price": 49.99,
     "img": "auriculares.jpg",
-    "code": "AI4004",
     "stock": 30,
-    "id": 4
+    "id": 4,
+    "code": "AURI-004",
+    "status": true,
+    "category": "Electrónica"
   },
   {
     "title": "Bolsa de almuerzo térmica",
     "description": "Bolsa térmica para llevar el almuerzo al trabajo o la escuela.",
     "price": 8.95,
     "img": "bolsa.jpg",
-    "code": "BA5005",
     "stock": 60,
-    "id": 5
+    "id": 5,
+    "code": "BOLS-005",
+    "status": true,
+    "category": "Hogar y cocina"
   },
   {
     "title": "Set de utensilios de cocina de silicona",
     "description": "Set de utensilios de cocina antiadherentes y fáciles de limpiar.",
     "price": 24.99,
     "img": "utensilios.jpg",
-    "code": "SU6006",
     "stock": 40,
-    "id": 6
+    "id": 6,
+    "code": "UTEN-006",
+    "status": true,
+    "category": "Utensilios de cocina"
   },
   {
     "title": "Mochila impermeable para senderismo",
     "description": "Mochila espaciosa y resistente al agua, ideal para actividades al aire libre.",
     "price": 39.95,
     "img": "mochila.jpg",
-    "code": "MI7007",
     "stock": 25,
-    "id": 7
+    "id": 7,
+    "code": "MOCH-007",
+    "status": true,
+    "category": "Deportes y aire libre"
   },
   {
     "title": "Juego de sábanas de algodón",
     "description": "Juego de sábanas suaves y cómodas para camas tamaño queen.",
     "price": 29.99,
     "img": "sabanas.jpg",
-    "code": "JS8008",
     "stock": 35,
-    "id": 8
+    "id": 8,
+    "code": "SABA-008",
+    "status": true,
+    "category": "Hogar y cocina"
   },
   {
     "title": "Pelota de fútbol",
     "description": "Pelota oficial de fútbol tamaño 5, ideal para partidos y entrenamientos.",
     "price": 14.99,
     "img": "pelota.jpg",
-    "code": "PF9009",
-    "stock": 70,
-    "id": 9
+    "stock": 120,
+    "id": 9,
+    "code": "PELO-009",
+    "status": true,
+    "category": "Deportes y aire libre"
   },
   {
     "title": "Lámpara LED de escritorio",
     "description": "Lámpara de escritorio con brazo flexible y ajustable, perfecta para estudiar o trabajar.",
     "price": 19.95,
     "img": "lampara.jpg",
-    "code": "LE10010",
     "stock": 20,
-    "id": 10
+    "id": 10,
+    "code": "LAMP-010",
+    "status": true,
+    "category": "Electrónica"
+  },
+  {
+    "title": "Remera",
+    "price": 9.1,
+    "description": "Probando",
+    "stock": 20,
+    "category": "Prueba",
+    "id": 1,
+    "status": true,
+    "code": "Probando312"
+  },
+  {
+    "title": "PruebaidRandom",
+    "price": 100000,
+    "description": "ProbandoID",
+    "stock": 90,
+    "category": "ID",
+    "code": "IDRANDOM",
+    "id": 26,
+    "status": true
+  },
+  {
+    "title": "PruebaidRandom",
+    "price": 100000,
+    "description": "ProbandoID",
+    "stock": 90,
+    "category": "ID",
+    "code": "IDRAasdNDOM",
+    "id": 60,
+    "status": true
+  },
+  {
+    "title": "PruebaidRandom",
+    "price": 100000,
+    "description": "ProbandoID",
+    "stock": 90,
+    "category": "ID",
+    "code": "IDdasdasRAasdNDOM",
+    "id": 18,
+    "status": true
+  },
+  {
+    "title": "PruebaidRandom",
+    "price": 100000,
+    "description": "ProbandoID",
+    "stock": 90,
+    "category": "ID",
+    "code": "IDdasdasRAasdasasdNDOM",
+    "id": 31,
+    "status": true
+  },
+  {
+    "title": "PruebaidRandom",
+    "price": 100000,
+    "description": "ProbandoID",
+    "stock": 90,
+    "category": "ID",
+    "code": "IDdasdasRAaasdasdassdasasdNDOM",
+    "id": 47,
+    "status": true
   }
 ]
