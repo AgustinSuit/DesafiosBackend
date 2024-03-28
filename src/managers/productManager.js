@@ -5,7 +5,7 @@ class ProductManager {
     generateRandomId() {
         let randomId;
         do {
-            randomId = Math.floor(Math.random() * 100);
+            randomId = Math.floor(Math.random() * 100).toString();
         } while (this.products.some(product => product.id === randomId));
         return randomId;
     }
@@ -41,24 +41,31 @@ class ProductManager {
     }
 
     addProduct(product) {
-        if (!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
-            throw new Error("Todos los campos son obligatorios.");
+        try {
+            if (!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
+                throw new Error("Todos los campos son obligatorios.");
+            }
+
+            const existingProduct = this.products.find(item => item.code === product.code);
+            if (existingProduct) {
+                throw new Error("El código del producto ya existe.");
+            }
+
+            const newProduct = {
+                ...product,
+                id: this.generateRandomId(),
+                status: true
+            };
+
+            this.products.push(newProduct);
+            this.saveProducts();
+
+            return { status: true, msg: newProduct.id };
+        } catch (error) {
+            return { status: false, msg: error.message };
         }
-
-        const existingProduct = this.products.find(item => item.code === product.code);
-        if (existingProduct) {
-            throw new Error("El código del producto ya existe.");
-        }
-
-        const newProduct = {
-            ...product,
-            id: this.generateRandomId(),
-            status: true
-        };
-
-        this.products.push(newProduct);
-        this.saveProducts();
     }
+
 
     getProductById(id) {
         return this.products.find(item => item.id === id);
@@ -85,7 +92,7 @@ class ProductManager {
     }
 
     deleteProduct(id) {
-        const productIndex = this.products.findIndex(product => product.id === id);
+        const productIndex = this.products.findIndex(product => product.id.toString() === id);
         if (productIndex !== -1) {
             this.products.splice(productIndex, 1);
             this.saveProducts();
@@ -93,6 +100,7 @@ class ProductManager {
             console.log("Producto no encontrado.");
         }
     }
+    
 
 }
 

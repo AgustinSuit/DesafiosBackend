@@ -1,10 +1,49 @@
 import fs from 'fs';
 
-class CartManager {
+export class InvalidProductError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'InvalidProductError';
+    }
+}
+
+export class InvalidCartError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'InvalidCartError';
+    }
+}
+
+export class InsufficientStockError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'InsufficientStockError';
+    }
+}
+
+export class CartManager {
     constructor(filePath) {
         this.filePath = filePath;
         this.carts = this.loadCarts();
+        this.products = this.loadProducts(); 
+
     }
+
+    loadProducts() {
+        try {
+            const data = fs.readFileSync('./src/db/productos.json', 'utf-8');
+            return JSON.parse(data);
+        } catch (error) {
+            console.error('Error al cargar los productos:', error);
+            return [];
+        }
+    }
+
+    // Método para obtener un producto por su ID
+    getProductById(productId) {
+        return this.products.find(product => product.id === productId);
+    }
+    
 
     loadCarts() {
         try {
@@ -35,13 +74,11 @@ class CartManager {
     }
 
     generateId() {
-        // Obtenemos la fecha actual en milisegundos
         const timestamp = new Date().getTime();
-        // Creamos un ID único concatenando el timestamp con un número aleatorio
         const uniqueId = timestamp.toString() + Math.floor(Math.random() * 1000);
         return uniqueId;
     }
-    
+
 
     getCartById(cartId) {
         return this.carts.find(cart => cart.id === cartId);
@@ -50,7 +87,23 @@ class CartManager {
     addProductToCart(cartId, productId, quantity) {
         const cart = this.getCartById(cartId);
         if (!cart) {
-            throw new Error('Carrito no encontrado.');
+            throw new InvalidCartError('Carrito no encontrado.');
+        }
+
+        // Verificar si la cantidad es válida
+        if (!Number.isInteger(quantity) || quantity <= 0) {
+            throw new Error('La cantidad del producto debe ser un número entero positivo.');
+        }
+        // Verificar si el producto existe en la base de datos antes de agregarlo al carrito
+        const product = this.getProductById(productId);
+        if (!product) {
+            throw new InvalidProductError('Producto no encontrado');
+        }
+
+
+        // Verificar si hay suficiente stock del producto
+        if (product.stock < quantity) {
+            throw new InsufficientStockError('No hay suficiente stock del producto.');
         }
 
         const productIndex = cart.products.findIndex(item => item.id === productId);
@@ -64,6 +117,8 @@ class CartManager {
 
         this.saveCarts();
     }
+
+
 
     removeProductFromCart(cartId, productId) {
         const cart = this.getCartById(cartId);
@@ -80,8 +135,5 @@ class CartManager {
             throw new Error('Producto no encontrado en el carrito.');
         }
     }
-    
+
 }
-
-export default CartManager;
-
