@@ -108,25 +108,5 @@
     "code": "LAMP-010",
     "status": true,
     "category": "Electrónica"
-  },
-  {
-    "title": "ProductodePrueba",
-    "description": "Descripción de Prueba",
-    "price": 12,
-    "code": "Probando",
-    "stock": 21,
-    "category": "Productodepruebas",
-    "id": "71",
-    "status": true
-  },
-  {
-    "title": "Producto de prueba",
-    "description": "Descripción de prueba",
-    "price": 260,
-    "code": "Codigo unico de prueba",
-    "stock": 60,
-    "category": "Categoria de prueba",
-    "id": "64",
-    "status": true
   }
 ]
