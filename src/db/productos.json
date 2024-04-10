@@ -108,5 +108,16 @@
     "code": "LAMP-010",
     "status": true,
     "category": "Electrónica"
+  },
+  {
+    "title": "Prueba",
+    "description": "Prueba2",
+    "price": "12",
+    "img": "Sin Imagen",
+    "code": "CLUBMOVISTAR",
+    "stock": "12",
+    "category": "Pito",
+    "status": true,
+    "id": "80"
   }
 ]
