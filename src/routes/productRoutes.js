@@ -1,12 +1,12 @@
 import express from 'express';
-import ProductManager from '../managers/productManager.js';
+import ProductManager from '../dao/productManager.js';
 
 // Manejo de productos
 const productRouter = express.Router();
 
 productRouter.get('/', async (req, res) => {
     try {
-        const productManager = new ProductManager('./src/db/productos.json');
+        const productManager = new ProductManager('./src/dao/db/productos.json');
         let products = await productManager.getProducts();
 
         const limit = req.query.limit;
@@ -22,7 +22,7 @@ productRouter.get('/', async (req, res) => {
 
 productRouter.get('/:pid', async (req, res) => {
     try {
-        const productManager = new ProductManager('./src/db/productos.json');
+        const productManager = new ProductManager('./src/dao/db/productos.json');
         const productId = req.params.pid;
         const product = await productManager.getProductById(productId);
 
@@ -41,7 +41,7 @@ productRouter.post('/', async (req, res, next) => {
         const newProduct = req.body;
         console.log('Nuevo producto recibido:', newProduct); // Verifica los datos recibidos desde la solicitud
 
-        const productManager = new ProductManager('./src/db/productos.json');
+        const productManager = new ProductManager('./src/dao/db/productos.json');
         const respuesta = productManager.addProduct(newProduct);
 
         if (respuesta.status) {
@@ -62,7 +62,7 @@ productRouter.put('/:pid', async (req, res) => {
         const productId = req.params.pid;
         const updatedFields = req.body;
 
-        const productManager = new ProductManager('./src/db/productos.json');
+        const productManager = new ProductManager('./src/dao/db/productos.json');
         productManager.updateProduct(productId, updatedFields);
 
         res.send(`Producto con ID ${productId} actualizado correctamente.`);
@@ -74,7 +74,7 @@ productRouter.put('/:pid', async (req, res) => {
 productRouter.delete('/:pid', async (req, res) => {
     try {
         const productId = req.params.pid;
-        const productManager = new ProductManager('./src/db/productos.json');
+        const productManager = new ProductManager('./src/dao/db/productos.json');
         productManager.deleteProduct(productId);
         res.send(`Producto con ID ${productId} eliminado correctamente.`);
     } catch (error) {

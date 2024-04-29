@@ -2,26 +2,18 @@ import express from 'express';
 import productRouter from "../src/routes/productRoutes.js";
 import cartRouter from "../src/routes/cartRoutes.js";
 import { Server } from "socket.io";
+import mongoose from 'mongoose';
+import Message from './dao/models/messageModel.js';
+import Product from './dao/models/productModel.js';
 
 const app = express();
 const PORT = 8080;
+
 
 //Middleware
 app.use(express.static("./src/public"));
 
 import fs from 'fs';
-
-const obtenerProductosDesdeArchivo = () => {
-    try {
-        const data = fs.readFileSync('./src/db/productos.json', 'utf-8');
-        const productos = JSON.parse(data);
-        return productos;
-    } catch (error) {
-        console.error('Error al leer el archivo de productos:', error);
-        return [];
-    }
-};
-
 
 // Configurando HandleBars
 import exphbs from "express-handlebars";
@@ -32,14 +24,19 @@ app.set("views", "./src/views");
 // Middleware para parsear el body como JSON
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    const products = obtenerProductosDesdeArchivo();
+app.get("/", async (req, res) => {
+    // Carga los productos usando ProductManager
+    const products = await productManager.getProducts();
     res.render("home", { products, titulo: "Inicio" });
-})
+});
 
 app.get("/realtimeproducts", async (req, res) => {
     res.render("realTimeProducts")
 })
+
+app.get("/chat", (req, res) => {
+    res.render("chat");
+});
 
 
 app.use('/api/carts', cartRouter);
@@ -55,13 +52,16 @@ const io = new Server(httpServer);
 
 // Array de productos:
 
-import ProductManager from './managers/productManager.js';
-const productManager = new ProductManager("./src/db/productos.json");
+import ProductManager from './dao/productManager.js';
+const productManager = new ProductManager("./src/dao/db/productos.json");
 
 io.on("connection", async (socket) => {
     console.log("Cliente conectado");
 
     // Array de productos enviar:
+    socket.emit("productos", await productManager.getProducts());
+    // Array de productos enviar:
+
     socket.emit("productos", await productManager.getProducts());
 
     // Recibimos el evento "eliminarProducto" desde el cliente:
@@ -75,7 +75,28 @@ io.on("connection", async (socket) => {
         await productManager.addProduct(producto);
         socket.emit("productos", await productManager.getProducts());
     })
+
+    // Manejar el evento 'message'
+    socket.on('message', async (message) => {
+        // Guardar el mensaje en la base de datos MongoDB
+        try {
+            await Message.create({ user: socket.id, message });
+            // Emitir el mensaje a todos los clientes conectados
+            io.emit('message', message);
+        } catch (error) {
+            console.error('Error al guardar el mensaje en MongoDB:', error);
+        }
+    });
+
 })
+
+// URL de conexión a tu base de datos MongoDB
+const DB_URI = "mongodb+srv://AgustinSuit:PruebaCoder@cluster0.bm7895k.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0";
+
+// Conexión a la base de datos
+mongoose.connect(DB_URI)
+    .then(() => console.log('Conexión exitosa a MongoDB'))
+    .catch((error) => console.error('Error de conexión a MongoDB:', error));
 
 export default app;
 

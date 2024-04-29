@@ -1,0 +1,32 @@
+<div id="chat">
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+    <button onclick="sendMessage()">Enviar</button>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    function sendMessage() {
+        const messageInput = document.getElementById('messageInput');
+        const message = messageInput.value.trim();
+        if (message !== '') {
+            socket.emit('message', message);
+            messageInput.value = '';
+        }
+    }
+
+    const messageInput = document.getElementById('messageInput');
+    messageInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    socket.on('message', (message) => {
+        const messagesContainer = document.getElementById('messages');
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messagesContainer.appendChild(messageElement);
+    });
+</script>
