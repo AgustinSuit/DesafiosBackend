@@ -38,6 +38,32 @@ app.get("/chat", (req, res) => {
     res.render("chat");
 });
 
+app.get("/products", async (req, res) => {
+    const page = req.query.page || 1;
+    let limit = 2;
+    try {
+        const productos = await Product.paginate({}, { limit, page });
+
+        // Forma rustica de arreglarlo (sin el lean())
+        const productosResultadoFinal = productos.docs.map(producto => {
+            const { _id, ...rest } = producto.toObject();
+            return rest;
+        })
+
+        res.render("products", {
+            productos: productosResultadoFinal,
+            hasPrevPage: productos.hasPrevPage,
+            hasNextPage: productos.hasNextPage,
+            prevPage: productos.prevPage,
+            nextPage: productos.nextPage,
+            currentPage: productos.page,
+            totalPages: productos.totalPages
+        });
+    } catch (error) {
+        res.status(500).send("Error en el servidor, en la UTN enseñan diseño")
+    }
+})
+
 
 app.use('/api/carts', cartRouter);
 
